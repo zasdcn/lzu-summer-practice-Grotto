@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 import sqlite3
 import os
 from datetime import datetime
-import tempfile
 
 # Get the directory of the current file
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -12,7 +11,7 @@ static_dir = os.path.join(project_root, 'static')
 
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.secret_key = 'lzu2023summer'
-app.config['UPLOAD_FOLDER'] = '/tmp/images'
+app.config['UPLOAD_FOLDER'] = '/tmp/uploads'
 app.config['DATABASE'] = '/tmp/database.db'
 
 # Initialize database
@@ -57,16 +56,16 @@ def format_date(date_str):
             for fmt in ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d', '%m/%d/%Y', '%d/%m/%Y']:
                 try:
                     dt = datetime.strptime(date_str, fmt)
-                    return dt.strftime('%YÄê%mÔÂ%dÈÕ')
+                    return dt.strftime('%Yå¹´%mæœˆ%dæ—¥')
                 except ValueError:
                     continue
             return date_str  # Return original string if parsing fails
         elif hasattr(date_str, 'strftime'):
-            return date_str.strftime('%YÄê%mÔÂ%dÈÕ')
+            return date_str.strftime('%Yå¹´%mæœˆ%dæ—¥')
         else:
             return str(date_str)
     except Exception:
-        return 'Î´ÖªÈÕÆÚ'
+        return 'æœªçŸ¥æ—¥æœŸ'
 
 @app.route('/')
 def index():
@@ -109,12 +108,12 @@ def publish():
                      (title, content, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
             conn.commit()
             conn.close()
-            flash('ÍÆÎÄ·¢²¼³É¹¦£¡', 'success')
+            flash('æ¨æ–‡å‘å¸ƒæˆåŠŸï¼', 'success')
         except Exception as e:
             print(f"Publishing article error: {e}")
-            flash('·¢²¼Ê§°Ü£¬ÇëÖØÊÔ£¡', 'error')
+            flash('å‘å¸ƒå¤±è´¥ï¼Œè¯·é‡è¯•ï¼', 'error')
     else:
-        flash('ÇëÌîĞ´ÍêÕûĞÅÏ¢£¡', 'error')
+        flash('è¯·å¡«å†™å®Œæ•´ä¿¡æ¯ï¼', 'error')
     
     return redirect(url_for('index'))
 
@@ -135,14 +134,14 @@ def delete_article(article_id):
             c.execute('DELETE FROM articles WHERE id = ?', (article_id,))
             conn.commit()
             conn.close()
-            return jsonify({'success': True, 'message': 'ÍÆÎÄÉ¾³ı³É¹¦'})
+            return jsonify({'success': True, 'message': 'æ¨æ–‡åˆ é™¤æˆåŠŸ'})
         else:
             conn.close()
-            return jsonify({'success': False, 'message': 'ÍÆÎÄ²»´æÔÚ'}), 404
+            return jsonify({'success': False, 'message': 'æ¨æ–‡ä¸å­˜åœ¨'}), 404
             
     except Exception as e:
         print(f"Delete article error: {e}")
-        return jsonify({'success': False, 'message': 'É¾³ıÊ§°Ü£¬ÇëÖØÊÔ'}), 500
+        return jsonify({'success': False, 'message': 'åˆ é™¤å¤±è´¥ï¼Œè¯·é‡è¯•'}), 500
 
 @app.route('/admin')
 def admin():
@@ -165,7 +164,7 @@ def admin():
 # Initialize database
 init_db()
 
-# For Vercel deployment
+# For Vercel deployment - export the app
 app = app
 
 if __name__ == '__main__':

@@ -56,16 +56,16 @@ def format_date(date_str):
             for fmt in ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d', '%m/%d/%Y', '%d/%m/%Y']:
                 try:
                     dt = datetime.strptime(date_str, fmt)
-                    return dt.strftime('%YÄê%mÔÂ%dÈÕ')
+                    return dt.strftime('%Yå¹´%mæœˆ%dæ—¥')
                 except ValueError:
                     continue
             return date_str  # Return original string if parsing fails
         elif hasattr(date_str, 'strftime'):
-            return date_str.strftime('%YÄê%mÔÂ%dÈÕ')
+            return date_str.strftime('%Yå¹´%mæœˆ%dæ—¥')
         else:
             return str(date_str)
     except Exception:
-        return 'Î´ÖªÈÕÆÚ'
+        return 'æœªçŸ¥æ—¥æœŸ'
 
 @app.route('/')
 def index():
@@ -108,12 +108,12 @@ def publish():
                      (title, content, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
             conn.commit()
             conn.close()
-            flash('ÍÆÎÄ·¢²¼³É¹¦£¡', 'success')
+            flash('æ¨æ–‡å‘å¸ƒæˆåŠŸï¼', 'success')
         except Exception as e:
             print(f"Publishing article error: {e}")
-            flash('·¢²¼Ê§°Ü£¬ÇëÖØÊÔ£¡', 'error')
+            flash('å‘å¸ƒå¤±è´¥ï¼Œè¯·é‡è¯•ï¼', 'error')
     else:
-        flash('ÇëÌîĞ´ÍêÕûĞÅÏ¢£¡', 'error')
+        flash('è¯·å¡«å†™å®Œæ•´ä¿¡æ¯ï¼', 'error')
     
     return redirect(url_for('index'))
 
@@ -134,14 +134,14 @@ def delete_article(article_id):
             c.execute('DELETE FROM articles WHERE id = ?', (article_id,))
             conn.commit()
             conn.close()
-            return jsonify({'success': True, 'message': 'ÍÆÎÄÉ¾³ı³É¹¦'})
+            return jsonify({'success': True, 'message': 'æ¨æ–‡åˆ é™¤æˆåŠŸ'})
         else:
             conn.close()
-            return jsonify({'success': False, 'message': 'ÍÆÎÄ²»´æÔÚ'}), 404
+            return jsonify({'success': False, 'message': 'æ¨æ–‡ä¸å­˜åœ¨'}), 404
             
     except Exception as e:
         print(f"Delete article error: {e}")
-        return jsonify({'success': False, 'message': 'É¾³ıÊ§°Ü£¬ÇëÖØÊÔ'}), 500
+        return jsonify({'success': False, 'message': 'åˆ é™¤å¤±è´¥ï¼Œè¯·é‡è¯•'}), 500
 
 @app.route('/admin')
 def admin():

@@ -18,25 +18,36 @@ app.config['DATABASE'] = '/tmp/database.db'
 # Initialize database
 def init_db():
     db_path = app.config['DATABASE']
+    
+    # Check if database already exists to avoid reinitializing
+    if os.path.exists(db_path):
+        return
+        
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     
-    with sqlite3.connect(db_path) as conn:
-        c = conn.cursor()
-        # Create team members table
-        c.execute('''CREATE TABLE IF NOT EXISTS team_members (
-                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                     name TEXT NOT NULL,
-                     role TEXT NOT NULL,
-                     description TEXT NOT NULL,
-                     image TEXT)''')
-        # Create articles table
-        c.execute('''CREATE TABLE IF NOT EXISTS articles (
-                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                     title TEXT NOT NULL,
-                     content TEXT NOT NULL,
-                     publish_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                     images TEXT)''')
-        conn.commit()
+    try:
+        with sqlite3.connect(db_path) as conn:
+            c = conn.cursor()
+            # Create team members table
+            c.execute('''CREATE TABLE IF NOT EXISTS team_members (
+                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         name TEXT NOT NULL,
+                         role TEXT NOT NULL,
+                         bio TEXT,
+                         image_path TEXT
+                     )''')
+            
+            # Create articles table
+            c.execute('''CREATE TABLE IF NOT EXISTS articles (
+                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         title TEXT NOT NULL,
+                         content TEXT NOT NULL,
+                         publish_date TEXT NOT NULL
+                     )''')
+             
+            conn.commit()
+    except Exception as e:
+        print(f"Database initialization error: {e}")
 
 # Format date helper function
 def format_date(date_str):
@@ -153,6 +164,9 @@ def admin():
 
 # Initialize database
 init_db()
+
+# For Vercel deployment
+app = app
 
 if __name__ == '__main__':
     app.run(debug=True)

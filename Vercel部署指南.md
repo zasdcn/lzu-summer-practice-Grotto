@@ -52,7 +52,7 @@ git add .
 git commit -m "Initial commit: 兰州大学暑期实践宣传平台"
 
 # 添加远程仓库（替换为您的 GitHub 用户名和仓库名）
-git remote add origin https://github.com/您的用户名/lzu-summer-practice.git
+git remote add origin https://github.com/zasdcn/lzu-summer-practice.git
 
 # 推送代码到 GitHub
 git branch -M main

@@ -1,0 +1,161 @@
+import xarray as xr
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+import pandas as pd
+from matplotlib.ticker import MaxNLocator
+
+# 设置中文显示
+plt.rcParams["font.family"] = ["SimHei"]
+plt.rcParams["axes.unicode_minus"] = False
+plt.rcParams["font.size"] = 10  # 基础字体大小
+plt.rcParams["axes.titlesize"] = 14  # 标题字体大小
+plt.rcParams["axes.labelsize"] = 12  # 轴标签字体大小
+
+# 参数设置
+YEARS = [2020, 2021, 2022, 2023, 2024]
+THRESHOLD = 4  # 大风阈值(m/s)
+# 为每个年份单独指定文件路径
+YEAR_FILES = {
+    2020: r"C:\Users\Lenovo\Desktop\20xt--feng.nc",
+    2021: r"C:\Users\Lenovo\Desktop\21xt--feng.nc",
+    2022: r"C:\Users\Lenovo\Desktop\22xt--feng.nc",
+    2023: r"C:\Users\Lenovo\Desktop\23xt--feng.nc",
+    2024: r"C:\Users\Lenovo\Desktop\24xt--feng.nc"
+}
+SEASON_MAP = {12: '冬季', 1: '冬季', 2: '冬季', 3: '春季', 4: '春季', 5: '春季',
+              6: '夏季', 7: '夏季', 8: '夏季', 9: '秋季', 10: '秋季', 11: '秋季'}
+SEASON_ORDER = ['春季', '夏季', '秋季', '冬季']
+MONTH_NAMES = ['1月', '2月', '3月', '4月', '5月', '6月', 
+               '7月', '8月', '9月', '10月', '11月', '12月']
+
+def main():
+    monthly_data = {}
+    seasonal_data = {}
+    all_daily_data = []  # 用于整体分析的所有日数据
+    
+    for year in YEARS:
+        path = YEAR_FILES[year]  # 使用指定的文件路径
+        if not os.path.exists(path):
+            print(f"文件不存在: {path}")
+            continue
+            
+        try:
+            ds = xr.open_dataset(path)
+            print(f"\n{year}年数据变量: {list(ds.data_vars)}")
+            
+            # 自动检测风速变量（单站点场景，取第一个u/v相关变量）
+            u_vars = [v for v in ds.data_vars if 'u' in v.lower()]
+            v_vars = [v for v in ds.data_vars if 'v' in v.lower()]
+            u_var = u_vars[0] if u_vars else None
+            v_var = v_vars[0] if v_vars else None
+            
+            if not u_var or not v_var:
+                print(f"{year}年未找到u/v变量")
+                continue
+                
+            print(f"使用变量: u={u_var}, v={v_var}")
+            
+            # 处理数据（单站点无需flatten，直接取时间维度）
+            u_data = ds[u_var].values
+            v_data = ds[v_var].values
+            # 假设时间维度是第0维，若维度顺序不同需调整
+            wind_speed = np.sqrt(u_data**2 + v_data**2).squeeze()  # 挤压掉多余维度（如站点维度）
+            
+            # 取有效时间长度（最多366天）
+            max_days = 366 if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0) else 365
+            wind_speed = wind_speed[:max_days]
+            dates = pd.date_range(start=f'{year}-01-01', periods=len(wind_speed))
+            
+            # 保存每日数据用于整体分析
+            daily_df = pd.DataFrame({
+                '日期': dates,
+                '风速': wind_speed,
+                '月份': dates.month,
+                '季节': [SEASON_MAP[m] for m in dates.month],
+                '年份': year
+            })
+            all_daily_data.append(daily_df)
+            
+            # 按月和季节统计（保留两位小数）
+            monthly_avg = daily_df.groupby('月份')['风速'].mean().round(2)
+            monthly_data[year] = monthly_avg
+            seasonal_avg = daily_df.groupby('季节')['风速'].mean().reindex(SEASON_ORDER).round(2)
+            seasonal_data[year] = seasonal_avg
+            
+            print(f"{year}年数据处理完成，有效数据点: {len(wind_speed)}")
+            
+        except Exception as e:
+            print(f"{year}年处理错误: {str(e)}")
+            continue
+    
+    # 合并所有数据进行分析
+    if all_daily_data:
+        combined_df = pd.concat(all_daily_data)
+        plot_seasonal_trend(seasonal_data, combined_df)
+        plot_monthly_comparison(monthly_data, combined_df)
+    else:
+        print("没有有效数据进行分析")
+
+def plot_seasonal_trend(seasonal_data, combined_df):
+    """绘制季节风速趋势图"""
+    fig, ax = plt.subplots(figsize=(10, 6))
+    colors = ['blue', 'orange', 'green', 'red']
+    seasons = SEASON_ORDER
+    markers = ['o', 's', '^', 'D']
+    
+    for i, season in enumerate(seasons):
+        season_values = []
+        for year in seasonal_data:
+            if season in seasonal_data[year]:
+                season_values.append(seasonal_data[year][season])
+        years = list(seasonal_data.keys())[:len(season_values)]
+        
+        ax.plot(years, season_values, color=colors[i], marker=markers[i], 
+                label=season, linewidth=2, markersize=6)
+    
+    ax.set_title('季节风速趋势', fontsize=14)
+    ax.set_xlabel('年份', fontsize=12)
+    ax.set_ylabel('风速(m/s)', fontsize=12)
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.legend(loc='upper right', fontsize=10)
+    ax.grid(linestyle='--', alpha=0.5)
+    plt.tight_layout()
+    plt.savefig('seasonal_wind_trend.png', dpi=300)
+    plt.show()
+
+def plot_monthly_comparison(monthly_data, combined_df):
+    """绘制近五年各月份平均风速对比图（纵轴0-5m/s）"""
+    # 计算多年平均
+    yearly_avg_list = []
+    for year in monthly_data:
+        yearly_avg_list.append(monthly_data[year])
+    multi_year_avg = pd.concat(yearly_avg_list, axis=1).mean(axis=1).round(2)
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(MONTH_NAMES, multi_year_avg, color='red', marker='D', 
+            label='多年平均', linewidth=2, markersize=6)
+    
+    # 标注最大值
+    max_month_idx = multi_year_avg.idxmax()
+    max_month_val = multi_year_avg.max()
+    ax.annotate(f'最大: {MONTH_NAMES[max_month_idx-1]} ({max_month_val}m/s)',
+                xy=(max_month_idx-1, max_month_val),
+                xytext=(max_month_idx+1, max_month_val + 0.5),  # 调整位置适配纵轴范围
+                arrowprops=dict(facecolor='black', shrink=0.05),
+                fontsize=10, fontweight='bold')
+    
+    # 设置纵轴范围 0-5m/s
+    ax.set_ylim(0, 5)
+    
+    ax.set_title('近五年各月份平均风速对比（含数值标注）', fontsize=14)
+    ax.set_xlabel('月份', fontsize=12)
+    ax.set_ylabel('平均风速(m/s)', fontsize=12)
+    ax.legend(loc='upper right', fontsize=10)
+    ax.grid(linestyle='--', alpha=0.5)
+    plt.tight_layout()
+    plt.savefig('monthly_wind_comparison.png', dpi=300)
+    plt.show()
+
+if __name__ == "__main__":
+    main()

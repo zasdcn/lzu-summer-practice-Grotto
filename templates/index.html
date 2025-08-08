@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兰州大学暑期实践宣传平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        :root {
+            --lzu-blue: #00539B;
+            --lzu-gold: #FFD700;
+            --light-blue: #e6f0fa;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 主要布局容器 */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .content-area {
+            min-width: 0; /* 防止内容溢出 */
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--lzu-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .quick-nav {
+            list-style: none;
+        }
+        
+        .quick-nav li {
+            margin-bottom: 8px;
+        }
+        
+        .quick-nav a {
+            color: #666;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: block;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .quick-nav a:hover {
+            background-color: var(--light-blue);
+            color: var(--lzu-blue);
+        }
+        
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stats-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .stats-value {
+            font-weight: 600;
+            color: var(--lzu-blue);
+            font-size: 1.1rem;
+        }
+        
+        .recent-activity {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .activity-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-time {
+            color: var(--lzu-blue);
+            font-weight: 500;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--lzu-blue), #003366);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--lzu-gold);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-subtext {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            /* 移除margin，由main-layout控制 */
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--lzu-blue);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--lzu-gold);
+            display: inline-block;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--lzu-gold);
+            color: var(--dark-gray);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #e6c200;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary {
+            background-color: var(--lzu-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004080;
+        }
+        
+        /* 团队介绍样式 */
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            text-align: center;
+            background: var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 83, 155, 0.1);
+        }
+        
+        .member-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--lzu-gold);
+            margin: 0 auto 15px;
+        }
+        
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .member-role {
+            color: var(--lzu-blue);
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .member-desc {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        /* 编辑器样式 */
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .editor-btn {
+            background: #f1f3f5;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .editor-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .editor-content {
+            min-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            outline: none;
+            background: #f9f9f9;
+        }
+        
+        /* 推文列表样式 */
+        .posts-list {
+            margin-top: 20px;
+        }
+        
+        .post-item {
+            background: var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        
+        .post-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 83, 155, 0.1);
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .post-date {
+            font-size: 0.9rem;
+            color: var(--lzu-blue);
+            margin-bottom: 10px;
+        }
+        
+        .post-content {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* 发布状态 */
+        .publish-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .publish-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .publish-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .sidebar {
+                position: static;
+                order: -1; /* 在移动端将侧边栏移到顶部 */
+            }
+            
+            .sidebar-section {
+                display: inline-block;
+                width: calc(50% - 10px);
+                margin-right: 20px;
+                vertical-align: top;
+            }
+            
+            .sidebar-section:nth-child(even) {
+                margin-right: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar-section {
+                display: block;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .main-layout {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-university logo-icon"></i>
+                <div>
+                    <div class="logo-text">兰州大学暑期实践宣传平台</div>
+                    <div class="logo-subtext">知行合一 · 服务社会 · 提升自我</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#view-section"><i class="fas fa-eye"></i> 查看推文</a></li>
+                    <li><a href="#editor-section"><i class="fas fa-edit"></i> 发布推文</a></li>
+                    <li><a href="#team-section"><i class="fas fa-users"></i> 团队介绍</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <div class="main-layout">
+            <!-- 主要内容区域 -->
+            <div class="content-area">
+                <!-- 查看推文区域 -->
+                <div class="section" id="view-section">
+            <h2 class="section-title">
+                <i class="fas fa-eye"></i> 查看推文
+            </h2>
+            <div class="posts-list">
+                {% if articles %}
+                    {% for article in articles %}
+                    <div class="post-item">
+                        <h3 class="post-title">{{ article[1] }}</h3>
+                        <p class="post-date">{{ articles_details['article_' + article[0]|string]['date'] if articles_details and 'article_' + article[0]|string in articles_details else '未知日期' }}</p>
+                        <p class="post-content">{{ (article[2]|striptags)[:100] }}{% if (article[2]|striptags)|length > 100 %}...{% endif %}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btn" onclick="showPostDetail('article_{{ article[0] }}')">查看详情</button>
+                            <button class="btn" style="background-color: #dc3545; color: white;" onclick="deletePost({{ article[0] }})">删除</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="post-item">
+                        <h3 class="post-title">暂无推文</h3>
+                        <p class="post-date">{{ "今天" }}</p>
+                        <p class="post-content">还没有发布任何推文，快去发布第一篇推文吧！</p>
+                        <button class="btn" onclick="document.getElementById('editor-section').scrollIntoView({behavior: 'smooth'})">立即发布</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 推文发布区域 -->
+        <div class="section" id="editor-section">
+            <h2 class="section-title">
+                <i class="fas fa-edit"></i> 发布新推文
+            </h2>
+            <div class="editor-toolbar">
+                <button class="editor-btn" data-command="bold"><i class="fas fa-bold"></i> 粗体</button>
+                <button class="editor-btn" data-command="italic"><i class="fas fa-italic"></i> 斜体</button>
+                <button class="editor-btn" data-command="underline"><i class="fas fa-underline"></i> 下划线</button>
+                <button class="editor-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i> 列表</button>
+                <button class="editor-btn" id="link-btn"><i class="fas fa-link"></i> 链接</button>
+            </div>
+            <div class="editor-content" contenteditable="true">
+                <h3>请输入推文标题</h3>
+                <p>在这里撰写您的推文内容...</p>
+            </div>
+            
+            <div id="publish-status" class="publish-status"></div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                <button class="btn btn-primary" id="publish-btn"><i class="fas fa-paper-plane"></i> 发布推文</button>
+                <button class="btn" id="save-draft"><i class="fas fa-save"></i> 保存草稿</button>
+                <button class="btn" id="clear-content"><i class="fas fa-trash-alt"></i> 清空内容</button>
+            </div>
+        </div>
+
+        <!-- 团队介绍 -->
+        <div class="section" id="team-section">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i> 实践团队介绍
+            </h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="团队负责人" class="member-img">
+                    <h3 class="member-name">张明</h3>
+                    <p class="member-role">团队负责人</p>
+                    <p class="member-desc">经济学院2020级本科生，负责团队整体协调与项目规划。</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="宣传组长" class="member-img">
+                    <h3 class="member-name">李华</h3>
+                    <p class="member-role">宣传组长</p>
+                    <p class="member-desc">新闻与传播学院2021级研究生，负责团队宣传工作与媒体对接。</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="调研组长" class="member-img">
+                    <h3 class="member-name">王强</h3>
+                    <p class="member-role">调研组长</p>
+                    <p class="member-desc">社会学院2020级本科生，负责调研方案设计与数据分析。</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="后勤组长" class="member-img">
+                    <h3 class="member-name">赵雪</h3>
+                    <p class="member-role">后勤组长</p>
+                    <p class="member-desc">管理学院2021级本科生，负责团队物资管理与行程安排。</p>
+                </div>
+            </div>
+        </div>
+            </div>
+            
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <!-- 快速导航 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-compass"></i> 快速导航
+                    </h3>
+                    <ul class="quick-nav">
+                        <li><a href="#view-section"><i class="fas fa-eye"></i> 查看推文</a></li>
+                        <li><a href="#editor-section"><i class="fas fa-edit"></i> 发布推文</a></li>
+                        <li><a href="#team-section"><i class="fas fa-users"></i> 团队介绍</a></li>
+                        <li><a href="/admin"><i class="fas fa-cog"></i> 管理后台</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 统计信息 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-chart-bar"></i> 统计信息
+                    </h3>
+                    <div class="stats-item">
+                        <span class="stats-label">总推文数</span>
+                        <span class="stats-value">{{ articles|length if articles else 0 }}</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">团队成员</span>
+                        <span class="stats-value">4</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">实践天数</span>
+                        <span class="stats-value">15</span>
+                    </div>
+                </div>
+                
+                <!-- 最近活动 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-clock"></i> 最近活动
+                    </h3>
+                    <div class="recent-activity">
+                        {% if articles %}
+                            {% for article in articles[:3] %}
+                            <div class="activity-item">
+                                <div class="activity-time">{{ articles_details['article_' + article[0]|string]['date'] if articles_details and 'article_' + article[0]|string in articles_details else '最近' }}</div>
+                                <div>发布了推文：{{ article[1][:20] }}{% if article[1]|length > 20 %}...{% endif %}</div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="activity-item">
+                                <div class="activity-time">今天</div>
+                                <div>暂无活动记录</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- 快捷操作 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-bolt"></i> 快捷操作
+                    </h3>
+                    <button class="btn" style="width: 100%; margin-bottom: 10px;" onclick="document.getElementById('editor-section').scrollIntoView({behavior: 'smooth'})">发布推文</button>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="window.open('/admin', '_blank')">管理后台</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editor = document.querySelector('.editor-content');
+            const publishBtn = document.getElementById('publish-btn');
+            const saveDraftBtn = document.getElementById('save-draft');
+            const clearBtn = document.getElementById('clear-content');
+            const publishStatus = document.getElementById('publish-status');
+            
+            // 编辑器功能按钮
+            document.querySelectorAll('.editor-btn[data-command]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const command = this.getAttribute('data-command');
+                    document.execCommand(command, false, null);
+                    editor.focus();
+                });
+            });
+            
+            // 链接按钮功能
+            document.getElementById('link-btn').addEventListener('click', function() {
+                const url = prompt('请输入链接地址：', 'https://');
+                if (url) {
+                    document.execCommand('createLink', false, url);
+                }
+                editor.focus();
+            });
+            
+            // 显示状态消息
+            function showStatus(message, type) {
+                publishStatus.textContent = message;
+                publishStatus.className = 'publish-status';
+                publishStatus.classList.add(`publish-${type}`);
+                publishStatus.style.display = 'block';
+                
+                setTimeout(() => {
+                    publishStatus.style.display = 'none';
+                }, 3000);
+            }
+            
+            // 发布按钮功能
+            publishBtn.addEventListener('click', function() {
+                const title = editor.querySelector('h3')?.textContent;
+                const content = editor.innerHTML;
+                
+                if (title && title !== '请输入推文标题' && editor.textContent.trim().length > 20) {
+                    // 发送到后端保存
+                    publishToServer(title, content);
+                } else {
+                    showStatus('请输入有效标题和内容！', 'error');
+                }
+            });
+            
+            // 发布到服务器的函数
+            function publishToServer(title, content) {
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('content', content);
+                
+                fetch('/publish', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showStatus(`推文"${title}"发布成功！`, 'success');
+                        
+                        // 清空编辑器
+                        setTimeout(() => {
+                            editor.innerHTML = '<h3>请输入推文标题</h3><p>在这里撰写您的推文内容...</p>';
+                        }, 1500);
+                        
+                        // 重新加载页面以显示新推文
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        showStatus('发布失败，请重试！', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatus('发布失败，请检查网络连接！', 'error');
+                });
+            }
+            
+            // 添加新推文到列表的函数
+            function addNewPost(title, content) {
+                const postsList = document.querySelector('.posts-list');
+                const currentDate = new Date().toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // 提取纯文本内容作为摘要
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = content;
+                const textContent = tempDiv.textContent || tempDiv.innerText || '';
+                const summary = textContent.replace(title, '').trim().substring(0, 100) + '...';
+                
+                // 生成唯一ID
+                const postId = 'post_' + Date.now();
+                
+                // 创建新的推文元素
+                const newPostItem = document.createElement('div');
+                newPostItem.className = 'post-item';
+                newPostItem.innerHTML = `
+                    <h3 class="post-title">${title}</h3>
+                    <p class="post-date">${currentDate}</p>
+                    <p class="post-content">${summary}</p>
+                    <button class="btn" onclick="showPostDetail('${postId}')">查看详情</button>
+                `;
+                
+                // 将新推文插入到列表顶部
+                postsList.insertBefore(newPostItem, postsList.firstChild);
+                
+                // 将完整内容添加到postDetails对象中
+                if (typeof window.postDetails === 'undefined') {
+                    window.postDetails = {};
+                }
+                
+                window.postDetails[postId] = {
+                    title: title,
+                    date: currentDate,
+                    content: `
+                        <h3>${title}</h3>
+                        <p><strong>发布时间：</strong>${currentDate}</p>
+                        <div>${content.replace(/<h3[^>]*>.*?<\/h3>/i, '')}</div>
+                    `
+                };
+            }
+            
+            // 保存草稿功能
+            saveDraftBtn.addEventListener('click', function() {
+                const title = editor.querySelector('h3')?.textContent;
+                if (title && title !== '请输入推文标题') {
+                    showStatus(`推文"${title}"已保存为草稿！`, 'success');
+                } else {
+                    showStatus('请输入标题以保存草稿！', 'error');
+                }
+            });
+            
+            // 清空内容
+            clearBtn.addEventListener('click', function() {
+                if (confirm('确定要清空所有内容吗？')) {
+                    editor.innerHTML = '<h3>请输入推文标题</h3><p>在这里撰写您的推文内容...</p>';
+                    showStatus('内容已清空', 'success');
+                }
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+        
+        // 显示推文详情功能
+         function showPostDetail(postId) {
+             // 从后端传递的推文详情数据
+             const articlesDetails = {{ articles_details|tojson }};
+             
+             // 合并数据库推文和新发布的推文
+             const defaultPostDetails = {
+                'post2': {
+                    title: '科技助农，青春筑梦',
+                    date: '2023年7月15日',
+                    content: `
+                        <h3>科技助农，青春筑梦</h3>
+                        <p><strong>发布时间：</strong>2023年7月15日</p>
+                        <p>实践团队运用专业知识，为当地农户提供科技指导，推广现代农业技术，助力乡村振兴发展。</p>
+                        <p>团队成员结合自身专业优势，开展了多项科技助农活动：</p>
+                        <ul>
+                            <li><strong>智慧农业推广：</strong>向农户介绍物联网、大数据在农业生产中的应用，帮助建立智能化监测系统。</li>
+                            <li><strong>绿色种植技术：</strong>推广有机肥料使用、病虫害生物防治等环保种植技术。</li>
+                            <li><strong>电商平台培训：</strong>教授农户如何利用网络平台销售农产品，拓宽销售渠道。</li>
+                            <li><strong>农机操作指导：</strong>协助农户掌握现代农业机械的操作和维护技能。</li>
+                        </ul>
+                        <p>通过科技助农活动，当地农业生产效率得到显著提升，农民收入稳步增长，为乡村振兴注入了新的活力。</p>
+                    `
+                },
+                'post3': {
+                    title: '教育帮扶，点亮希望',
+                    date: '2023年7月20日',
+                    content: `
+                        <h3>教育帮扶，点亮希望</h3>
+                        <p><strong>发布时间：</strong>2023年7月20日</p>
+                        <p>团队成员深入当地学校，开展支教活动，为孩子们带来知识与希望，用青春力量点亮乡村教育。</p>
+                        <p>教育帮扶是本次实践活动的重要组成部分，团队成员充分发挥专业特长，开展了丰富多彩的教育活动：</p>
+                        <ul>
+                            <li><strong>课业辅导：</strong>为当地中小学生提供语文、数学、英语等学科的课业辅导。</li>
+                            <li><strong>科普讲座：</strong>开展科学知识普及活动，激发孩子们对科学的兴趣。</li>
+                            <li><strong>艺术教育：</strong>组织音乐、美术、舞蹈等艺术课程，丰富孩子们的精神文化生活。</li>
+                            <li><strong>心理健康：</strong>关注留守儿童心理健康，开展心理疏导和情感陪伴活动。</li>
+                            <li><strong>励志教育：</strong>分享大学生活经历，激励孩子们树立远大理想。</li>
+                        </ul>
+                        <p>通过教育帮扶活动，不仅提高了当地教育质量，更重要的是为孩子们播下了希望的种子，让他们看到了更广阔的世界和更美好的未来。</p>
+                    `
+                }
+            };
+             
+             // 合并数据库推文、默认推文和新发布的推文
+             const allPostDetails = Object.assign({}, defaultPostDetails, articlesDetails, window.postDetails || {});
+             const detail = allPostDetails[postId];
+            if (detail) {
+                // 创建模态框
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    padding: 20px;
+                    box-sizing: border-box;
+                `;
+                
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    border-radius: 10px;
+                    padding: 30px;
+                    max-width: 800px;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    position: relative;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                `;
+                
+                modalContent.innerHTML = `
+                    <button onclick="this.closest('.modal').remove()" style="
+                        position: absolute;
+                        top: 15px;
+                        right: 20px;
+                        background: none;
+                        border: none;
+                        font-size: 24px;
+                        cursor: pointer;
+                        color: #666;
+                        padding: 0;
+                        width: 30px;
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">&times;</button>
+                    <div style="margin-right: 40px;">
+                        ${detail.content}
+                    </div>
+                `;
+                
+                modal.className = 'modal';
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                // 点击背景关闭模态框
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+            }
+         }
+         
+         // 删除推文功能
+         function deletePost(articleId) {
+             if (confirm('确定要删除这篇推文吗？此操作不可撤销。')) {
+                 fetch(`/delete/${articleId}`, {
+                     method: 'DELETE',
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 })
+                 .then(response => response.json())
+                 .then(data => {
+                     if (data.success) {
+                         alert('推文删除成功！');
+                         window.location.reload();
+                     } else {
+                         alert('删除失败：' + (data.message || '未知错误'));
+                     }
+                 })
+                 .catch(error => {
+                     console.error('删除推文时出错:', error);
+                     alert('删除失败，请重试！');
+                 });
+             }
+         }
+    </script>
+</body>
+</html>

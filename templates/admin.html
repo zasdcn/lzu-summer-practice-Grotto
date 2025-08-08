@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>推文管理</title>
+    <style>
+        body { font-family: 'Microsoft YaHei', sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        img { max-width: 100px; }
+    </style>
+</head>
+<body>
+    <h1>推文管理</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>图片</th>
+                <th>发布时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>{{ article[0] }}</td>
+                <td>{{ article[1] }}</td>
+                <td>{{ (article[2]|striptags)[:100] }}{% if (article[2]|striptags)|length > 100 %}...{% endif %}</td>
+                <td>
+                    {% if article[4] %}
+                    {% set images = article[4].split(',') %}
+                    {% for image in images %}
+                    <img src="{{ url_for('static', filename='images/' + image) }}" alt="推文图片" style="max-width: 50px; margin: 2px;">
+                    {% endfor %}
+                    {% else %}
+                    无
+                    {% endif %}
+                </td>
+                <td>{{ article[3] }}</td>
+                <td>
+                    <button class="delete-btn" data-id="{{ article[0] }}">删除</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        // 删除功能
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const articleId = this.dataset.id;
+                
+                if (!confirm('确定要删除这条推文吗？此操作不可撤销！')) return;
+                
+                try {
+                    const response = await fetch(`/delete/${articleId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        this.closest('tr').remove();
+                        alert('删除成功!');
+                    } else {
+                        const error = await response.json();
+                        alert(`删除失败: ${error.error}`);
+                    }
+                } catch (err) {
+                    console.error('删除错误:', err);
+                    alert('网络错误，请重试');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

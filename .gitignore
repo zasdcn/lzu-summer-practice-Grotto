@@ -1,0 +1,124 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+PYRECORDS
+
+# Virtual Environment
+venv/
+env/
+weather_analysis_env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Data files
+*.nc
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads
+uploads/
+static/images/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# Node modules (if any)
+node_modules/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# Specific project files to ignore
+longmen/
+mj/
+xiangtang/
+yg/
+data/
+*.py
+!app.py
+!api/
+!api/index.py
+tweets_data.json
+get_access_url.py
+check.py
+*.png
+*.nc
+风速配图.py
+风速配图代码.txt
+麦基图1.py
+麦基图2.py
+云岗风速.py
+统计风速大于4ms.py
+统计风速大于4ms (1).py
+yg2024.nc
+lm.png
+mj.png
+xt.png
+yg.png
+hotlm.py
+hotmj.py
+hotxt.py
+hotyg.py

@@ -1,0 +1,977 @@
+<!-- <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兰州大学暑期实践宣传平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        :root {
+            --lzu-blue: #00539B;
+            --lzu-gold: #FFD700;
+            --light-blue: #e6f0fa;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--lzu-blue), #003366);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--lzu-gold);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-subtext {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* 主横幅 */
+        .hero {
+            background: linear-gradient(rgba(0, 83, 155, 0.8), rgba(0, 51, 102, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--lzu-gold);
+            color: var(--dark-gray);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #e6c200;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary {
+            background-color: var(--lzu-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #004080;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        /* 文章卡片 */
+        .section-title {
+            font-size: 2rem;
+            color: var(--lzu-blue);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--lzu-gold);
+            display: inline-block;
+        }
+        
+        /* 团队部分 */
+        .team-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            text-align: center;
+            background: var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 83, 155, 0.1);
+        }
+        
+        .member-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--lzu-gold);
+            margin: 0 auto 15px;
+        }
+        
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .member-role {
+            color: var(--lzu-blue);
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .member-desc {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        /* 编辑器区域 */
+        .editor-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .editor-btn {
+            background: #f1f3f5;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .editor-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .editor-content {
+            min-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            outline: none;
+            background: #f9f9f9;
+        }
+        
+        /* 图片上传区域 */
+        .image-upload-container {
+            background: var(--light-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--lzu-blue);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .upload-area:hover {
+            background: rgba(0, 83, 155, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--lzu-blue);
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            color: var(--lzu-blue);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .image-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--lzu-blue);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: linear-gradient(to right, var(--lzu-blue), #003366);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--lzu-gold);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--lzu-gold);
+            padding-left: 5px;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .contact-info i {
+            color: var(--lzu-gold);
+            font-size: 1.2rem;
+            margin-top: 4px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* 功能标签 */
+        .feature-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--lzu-gold);
+            color: var(--lzu-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            z-index: 2;
+        }
+        
+        .editor-container, .team-section {
+            position: relative;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero {
+                padding: 70px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .editor-container, .team-section {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .editor-container {
+            animation-delay: 0.1s;
+        }
+        
+        .team-section {
+            animation-delay: 0.3s;
+        }
+        
+        /* 功能指示 */
+        .function-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 查看推文模块 */
+        .view-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .posts-list {
+            margin-top: 20px;
+        }
+
+        .post-item {
+            background: var(--light-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .post-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 83, 155, 0.1);
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .post-date {
+            font-size: 0.9rem;
+            color: var(--lzu-blue);
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+
+
+
+
+
+
+
+        /* 发布状态 */
+        .publish-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .publish-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .publish-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-university logo-icon"></i>
+                <div>
+                    <div class="logo-text">兰州大学暑期实践宣传平台</div>
+                    <div class="logo-subtext">知行合一 · 服务社会 · 提升自我</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#view-section"><i class="fas fa-eye"></i> 查看推文</a></li>
+                    <li><a href="#editor-section"><i class="fas fa-edit"></i> 发布推文</a></li>
+                    <li><a href="#team-section"><i class="fas fa-users"></i> 团队介绍</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主横幅 -->
+    <section class="hero">
+        <div class="container">
+            <h1>2023年兰州大学暑期社会实践</h1>
+            <p>深入基层，服务社会，用青春书写时代篇章。兰州大学学子奔赴全国各地开展社会实践，在实践中增长才干，在奉献中实现价值。</p>
+            <a href="#editor-section" class="btn btn-primary"><i class="fas fa-edit"></i> 发布推文</a>
+            <a href="#team-section" class="btn"><i class="fas fa-users"></i> 查看团队</a>
+        </div>
+    </section>
+
+    <!-- 主要内容 -->
+    <div class="container main-content">
+
+
+        <div class="content">
+            <!-- 查看推文区域 -->
+            <div class="view-section" id="view-section">
+                <span class="feature-tag">核心功能</span>
+                <h2 class="section-title">
+                    <span class="function-title">
+                        <i class="fas fa-eye"></i> 查看推文
+                    </span>
+                </h2>
+                <div class="posts-list">
+                    <!-- 推文列表 -->
+                    <div class="post-item">
+                        <h3 class="post-title">推文标题1</h3>
+                        <p class="post-date">2023年7月10日</p>
+                        <p class="post-content">这里是推文内容的简要描述...</p>
+                        <a href="#" class="btn">查看详情</a>
+                    </div>
+                    <div class="post-item">
+                        <h3 class="post-title">推文标题2</h3>
+                        <p class="post-date">2023年7月15日</p>
+                        <p class="post-content">这是另一篇推文的简要描述...</p>
+                        <a href="#" class="btn">查看详情</a>
+                    </div>
+                    <!-- 更多推文 -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content">
+            <!-- 推文发布区域 -->
+            <div class="editor-container" id="editor-section">
+                <span class="feature-tag">核心功能</span>
+                <h2 class="section-title">
+                    <span class="function-title">
+                        <i class="fas fa-edit"></i> 发布新推文
+                    </span>
+                </h2>
+                <div class="editor-toolbar">
+                    <button class="editor-btn" data-command="bold"><i class="fas fa-bold"></i> 粗体</button>
+                    <button class="editor-btn" data-command="italic"><i class="fas fa-italic"></i> 斜体</button>
+                    <button class="editor-btn" data-command="underline"><i class="fas fa-underline"></i> 下划线</button>
+                    <button class="editor-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i> 列表</button>
+                    <button class="editor-btn" id="link-btn"><i class="fas fa-link"></i> 链接</button>
+                    <button id="image-upload-btn" class="editor-btn"><i class="fas fa-image"></i> 插入图片</button>
+                    <button class="editor-btn" data-command="justifyLeft"><i class="fas fa-align-left"></i></button>
+                    <button class="editor-btn" data-command="justifyCenter"><i class="fas fa-align-center"></i></button>
+                    <button class="editor-btn" data-command="justifyRight"><i class="fas fa-align-right"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                    <h3>请输入推文标题</h3>
+                    <p>在这里撰写您的推文内容...您可以插入图片、视频等多媒体内容。</p>
+                    <p>例如：</p>
+                    <p>2023年7月10日，兰州大学"乡村振兴"实践团赴甘肃省定西市开展为期15天的社会实践活动。团队成员深入田间地头，走访农户，开展调查研究...</p>
+                </div>
+                
+                <!-- 图片上传区域 -->
+                <div class="image-upload-container" id="upload-container">
+                    <div class="upload-area" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">点击或拖拽图片到此处上传</p>
+                        <p class="text-muted">支持 JPG、PNG 格式，最大 5MB</p>
+                        <input type="file" id="file-input" accept="image/*" multiple>
+                    </div>
+                    <div class="preview-container" id="preview-container">
+                        <!-- 图片预览将在这里显示 -->
+                    </div>
+                </div>
+                
+                <div id="publish-status" class="publish-status"></div>
+                
+                <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" id="publish-btn"><i class="fas fa-paper-plane"></i> 发布推文</button>
+                    <button class="btn" id="save-draft"><i class="fas fa-save"></i> 保存草稿</button>
+                    <button class="btn" id="clear-content"><i class="fas fa-trash-alt"></i> 清空内容</button>
+                </div>
+            </div>
+
+            <!-- 团队介绍 -->
+            <div class="team-section" id="team-section">
+                <span class="feature-tag">核心功能</span>
+                <h2 class="section-title">
+                    <span class="function-title">
+                        <i class="fas fa-users"></i> 实践团队介绍
+                    </span>
+                </h2>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="团队负责人" class="member-img">
+                        <h3 class="member-name">张明</h3>
+                        <p class="member-role">团队负责人</p>
+                        <p class="member-desc">经济学院2020级本科生，负责团队整体协调与项目规划。</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="宣传组长" class="member-img">
+                        <h3 class="member-name">李华</h3>
+                        <p class="member-role">宣传组长</p>
+                        <p class="member-desc">新闻与传播学院2021级研究生，负责团队宣传工作与媒体对接。</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="调研组长" class="member-img">
+                        <h3 class="member-name">王强</h3>
+                        <p class="member-role">调研组长</p>
+                        <p class="member-desc">社会学院2020级本科生，负责调研方案设计与数据分析。</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="后勤组长" class="member-img">
+                        <h3 class="member-name">赵雪</h3>
+                        <p class="member-role">后勤组长</p>
+                        <p class="member-desc">管理学院2021级本科生，负责团队物资管理与行程安排。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 简化页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于平台</h3>
+                    <p>兰州大学暑期社会实践宣传平台，提供团队信息展示和推文发布功能，助力实践团队宣传推广。</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>甘肃省兰州市城关区天水南路222号 兰州大学</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>0931-8912111</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>practice@lzu.edu.cn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>? 2023 兰州大学暑期社会实践宣传平台 版权所有 | 设计制作：兰州大学团委</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editor = document.querySelector('.editor-content');
+            const imageUploadBtn = document.getElementById('image-upload-btn');
+            const uploadContainer = document.getElementById('upload-container');
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const previewContainer = document.getElementById('preview-container');
+            const publishBtn = document.getElementById('publish-btn');
+            const saveDraftBtn = document.getElementById('save-draft');
+            const clearBtn = document.getElementById('clear-content');
+            const publishStatus = document.getElementById('publish-status');
+            
+            // 编辑器功能按钮
+            document.querySelectorAll('.editor-btn[data-command]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const command = this.getAttribute('data-command');
+                    document.execCommand(command, false, null);
+                    editor.focus();
+                });
+            });
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            // 链接按钮功能
+            document.getElementById('link-btn').addEventListener('click', function() {
+                const url = prompt('请输入链接地址：', 'https://');
+                if (url) {
+                    document.execCommand('createLink', false, url);
+                }
+                editor.focus();
+            });
+            
+            // 显示/隐藏图片上传区域
+            imageUploadBtn.addEventListener('click', function() {
+                uploadContainer.style.display = uploadContainer.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // 点击上传区域触发文件选择
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // 拖拽功能
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = 'rgba(0, 83, 155, 0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+            
+            // 文件选择处理
+            fileInput.addEventListener('change', function() {
+                if (this.files.length) {
+                    handleFiles(this.files);
+                }
+            });
+            
+            // 处理选择的图片文件
+            function handleFiles(files) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // 检查文件类型
+                    if (!file.type.match('image.*')) {
+                        showStatus('请选择图片文件！', 'error');
+                        continue;
+                    }
+                    
+                    // 检查文件大小 (最大5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        showStatus('图片大小不能超过5MB！', 'error');
+                        continue;
+                    }
+                    
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // 创建预览
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('image-preview');
+                        
+                        // 创建图片项容器
+                        const previewItem = document.createElement('div');
+                        previewItem.classList.add('preview-item');
+                        previewItem.appendChild(img);
+                        
+                        // 添加到预览容器
+                        previewContainer.appendChild(previewItem);
+                        
+                        // 插入图片到编辑器
+                        const editorImg = document.createElement('img');
+                        editorImg.src = e.target.result;
+                        editorImg.style.maxWidth = '100%';
+                        editorImg.style.margin = '15px 0';
+                        editorImg.style.borderRadius = '8px';
+                        editor.appendChild(editorImg);
+                        
+                        // 添加一个段落用于继续输入
+                        const p = document.createElement('p');
+                        p.textContent = '';
+                        editor.appendChild(p);
+                        
+                        // 聚焦到最后
+                        focusEditor();
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            // 聚焦到编辑器末尾
+            function focusEditor() {
+                const range = document.createRange();
+                const selection = window.getSelection();
+                range.selectNodeContents(editor);
+                range.collapse(false);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                editor.focus();
+            }
+            
+            // 显示状态消息
+            function showStatus(message, type) {
+                publishStatus.textContent = message;
+                publishStatus.className = 'publish-status';
+                publishStatus.classList.add(`publish-${type}`);
+                publishStatus.style.display = 'block';
+                
+                // 5秒后隐藏消息
+                setTimeout(() => {
+                    publishStatus.style.display = 'none';
+                }, 5000);
+            }
+            
+            // 发布按钮功能
+            publishBtn.addEventListener('click', function() {
+                const title = editor.querySelector('h3')?.textContent;
+                if (title && title !== '请输入推文标题' && editor.textContent.trim().length > 50) {
+                    showStatus(`推文"${title}"发布成功！`, 'success');
+                    
+                    // 模拟发布后的操作
+                    setTimeout(() => {
+                        editor.innerHTML = '<h3>请输入推文标题</h3><p>在这里撰写您的推文内容...您可以插入图片、视频等多媒体内容。</p>';
+                        previewContainer.innerHTML = '';
+                        uploadContainer.style.display = 'none';
+                    }, 1500);
+                } else {
+                    showStatus('请输入有效标题和内容（内容至少50个字符）！', 'error');
+                }
+            });
+            
+            // 保存草稿功能
+            saveDraftBtn.addEventListener('click', function() {
+                const title = editor.querySelector('h3')?.textContent;
+                if (title && title !== '请输入推文标题') {
+                    showStatus(`推文"${title}"已保存为草稿！`, 'success');
+                } else {
+                    showStatus('请输入标题以保存草稿！', 'error');
+                }
+            });
+            
+            // 清空内容
+            clearBtn.addEventListener('click', function() {
+                if (confirm('确定要清空所有内容吗？')) {
+                    editor.innerHTML = '<h3>请输入推文标题</h3><p>在这里撰写您的推文内容...您可以插入图片、视频等多媒体内容。</p>';
+                    previewContainer.innerHTML = '';
+                    uploadContainer.style.display = 'none';
+                    showStatus('内容已清空', 'success');
+                }
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 初始聚焦到编辑器
+            editor.addEventListener('click', function() {
+                if (editor.textContent === '请输入推文标题在这里撰写您的推文内容...您可以插入图片、视频等多媒体内容。例如：2023年7月10日，兰州大学"乡村振兴"实践团赴甘肃省定西市开展为期15天的社会实践活动。团队成员深入田间地头，走访农户，开展调查研究...') {
+                    editor.innerHTML = '<h3>请输入推文标题</h3><p></p>';
+                    focusEditor();
+                }
+            });
+        });
+    </script>
+</body>
+</html> -->

@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 import sqlite3
 import os
 from datetime import datetime
-import tempfile
 
 # Get the directory of the current file
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -12,7 +11,7 @@ static_dir = os.path.join(project_root, 'static')
 
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.secret_key = 'lzu2023summer'
-app.config['UPLOAD_FOLDER'] = '/tmp/images'
+app.config['UPLOAD_FOLDER'] = '/tmp/uploads'
 app.config['DATABASE'] = '/tmp/database.db'
 
 # Initialize database
@@ -165,7 +164,7 @@ def admin():
 # Initialize database
 init_db()
 
-# For Vercel deployment
+# For Vercel deployment - export the app
 app = app
 
 if __name__ == '__main__':

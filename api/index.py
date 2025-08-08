@@ -4,7 +4,13 @@ import os
 from datetime import datetime
 import tempfile
 
-app = Flask(__name__, template_folder='../templates', static_folder='../static')
+# Get the directory of the current file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_dir)
+template_dir = os.path.join(project_root, 'templates')
+static_dir = os.path.join(project_root, 'static')
+
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.secret_key = 'lzu2023summer'
 app.config['UPLOAD_FOLDER'] = '/tmp/images'
 app.config['DATABASE'] = '/tmp/database.db'
